@@ -29,20 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
         question.addEventListener('click', () => {
             const isExpanded = question.getAttribute('aria-expanded') === 'true';
             const answer = question.nextElementSibling;
-            
+
             // Close all others (optional, but good for focus)
             document.querySelectorAll('.faq-question').forEach(q => {
-               if (q !== question) {
-                   q.setAttribute('aria-expanded', 'false');
-                   q.classList.remove('active');
-                   q.nextElementSibling.style.maxHeight = null;
-               }
+                if (q !== question) {
+                    q.setAttribute('aria-expanded', 'false');
+                    q.classList.remove('active');
+                    q.nextElementSibling.style.maxHeight = null;
+                }
             });
 
             // Toggle current
             question.setAttribute('aria-expanded', !isExpanded);
             question.classList.toggle('active');
-            
+
             if (!isExpanded) {
                 answer.style.maxHeight = answer.scrollHeight + "px";
             } else {
@@ -51,33 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Contact Form Handling
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Basic validation visualization (HTML5 does most of it)
-            const inputs = contactForm.querySelectorAll('input, textarea');
-            let isValid = true;
-            
-            inputs.forEach(input => {
-                if (!input.checkValidity()) {
-                    isValid = false;
-                    input.style.borderColor = 'red';
-                } else {
-                    input.style.borderColor = ''; // reset
-                }
-            });
 
-            if (isValid) {
-                // Show success toast
-                showToast('Messaggio inviato con successo!');
-                contactForm.reset();
-            }
-        });
-    }
 
     // Toast Notification
     function showToast(message) {
@@ -88,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
             toast.className = 'toast';
             document.body.appendChild(toast);
         }
-        
+
         toast.textContent = message;
         toast.classList.add('show');
-        
+
         setTimeout(() => {
             toast.classList.remove('show');
         }, 3000);
@@ -103,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
